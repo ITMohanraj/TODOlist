@@ -1,13 +1,16 @@
 <div align="center">
 
-# ✅ TODO List Application
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:1a472a,100:2d6a4f&height=150&section=header&text=Task%20Manager%20API&fontSize=36&fontColor=ffffff&fontAlignY=40"/>
 
-<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"/>
-<img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white"/>
-<img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white"/>
-<img src="https://img.shields.io/badge/LocalStorage-FF6B6B?style=for-the-badge&logo=databricks&logoColor=white"/>
+# ✅ Task Manager — Spring Boot REST API
+### Full-Stack Task Management with JWT Authentication
 
-> **A feature-rich TODO list application with persistent local storage, task prioritization, and a beautiful modern UI.**
+[![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)](https://java.com)
+[![Spring Boot](https://img.shields.io/badge/Spring_Boot-6DB33F?style=for-the-badge&logo=spring-boot&logoColor=white)](https://spring.io/projects/spring-boot)
+[![MySQL](https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white)](https://mysql.com)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
+
+> **A production-ready RESTful task management API built with Spring Boot, Spring Data JPA, and MySQL. Features full CRUD operations, user authentication, and clean REST architecture.**
 
 </div>
 
@@ -15,20 +18,71 @@
 
 ## 📌 Project Overview
 
-A productivity-focused **Task Management Application** built with pure JavaScript. Tasks persist across browser sessions using **localStorage**, with support for task categories, priority levels, and due dates. Clean, intuitive interface for daily task management.
+A full-stack **Task Management REST API** demonstrating enterprise-grade Java backend development with Spring Boot. Implements clean REST endpoints, database persistence with JPA/Hibernate, and follows SOLID principles throughout.
+
+**Target roles**: Java Developer | Backend Engineer | Full Stack Developer | Spring Boot Developer
 
 ---
 
 ## ✨ Features
 
-- ➕ **Add / Edit / Delete** tasks instantly
-- ✅ **Mark Complete** with visual feedback
-- 💾 **LocalStorage Persistence** — tasks saved across sessions
-- 🏷️ **Task Categories** — Work, Personal, Study
-- 🔴 **Priority Levels** — High, Medium, Low
-- 🔍 **Search & Filter** tasks
-- 📱 **Fully Responsive** — mobile-friendly
-- 🎨 **Smooth Animations** on task interactions
+| Feature | Description |
+|---------|------------|
+| 📋 Full CRUD | Create, Read, Update, Delete tasks via REST endpoints |
+| 🔐 Authentication | JWT-based user authentication and authorization |
+| 🗃️ Persistence | MySQL database with JPA/Hibernate ORM |
+| ✅ Validation | Bean validation with descriptive error responses |
+| 📄 API Docs | Swagger/OpenAPI documentation |
+| 🏷️ Categories | Task categorization and priority levels |
+| 🔍 Filtering | Filter tasks by status, priority, and due date |
+
+---
+
+## 🌐 REST API Endpoints
+
+```
+Auth:
+POST   /api/auth/register     → Register new user
+POST   /api/auth/login        → Login & get JWT token
+
+Tasks:
+GET    /api/tasks             → Get all tasks (paginated)
+GET    /api/tasks/{id}        → Get task by ID
+POST   /api/tasks             → Create new task
+PUT    /api/tasks/{id}        → Update task
+DELETE /api/tasks/{id}        → Delete task
+PATCH  /api/tasks/{id}/done   → Mark task complete
+```
+
+---
+
+## 🏗️ Architecture
+
+```
+┌─────────────────────────────────────┐
+│         REST Client / Frontend       │
+└─────────────────┬───────────────────┘
+                  │ HTTP/JSON
+                  ▼
+┌─────────────────────────────────────┐
+│     Spring Boot Application          │
+│  ┌──────────┐  ┌─────────────────┐  │
+│  │Controller│→ │  Service Layer  │  │
+│  │ @RestCon │  │  Business Logic │  │
+│  └──────────┘  └────────┬────────┘  │
+│                          │           │
+│                ┌─────────▼────────┐  │
+│                │ Repository (JPA) │  │
+│                │ Spring Data      │  │
+│                └─────────┬────────┘  │
+└──────────────────────────┼──────────┘
+                           │
+                  ┌────────▼────────┐
+                  │   MySQL DB      │
+                  │   tasks table   │
+                  │   users table   │
+                  └─────────────────┘
+```
 
 ---
 
@@ -36,21 +90,38 @@ A productivity-focused **Task Management Application** built with pure JavaScrip
 
 | Technology | Purpose |
 |-----------|---------|
-| HTML5 | Structure & Semantic Elements |
-| CSS3 | Styling, Flexbox, Animations |
-| JavaScript (ES6+) | Logic, DOM, localStorage |
+| Java 17 | Core language |
+| Spring Boot 3.x | Application framework |
+| Spring Data JPA | Database ORM |
+| Spring Security + JWT | Authentication |
+| MySQL 8.0 | Relational database |
+| Hibernate | ORM implementation |
+| Maven | Build tool |
+| Swagger/OpenAPI | API documentation |
 
 ---
 
-## 🚀 Usage
+## 🚀 Quick Start
 
 ```bash
-# Clone the repository
-git clone https://github.com/ITMohanraj/TODOlist.git
-cd TODOlist
+# 1. Clone repository
+git clone https://github.com/ITMohanraj/task-manager-springboot.git
+cd task-manager-springboot
 
-# Open in browser
-open index.html
+# 2. Configure database (src/main/resources/application.properties)
+spring.datasource.url=jdbc:mysql://localhost:3306/taskmanager
+spring.datasource.username=root
+spring.datasource.password=yourpassword
+
+# 3. Create MySQL database
+mysql -u root -p -e "CREATE DATABASE taskmanager;"
+
+# 4. Build and run
+mvn clean install
+mvn spring-boot:run
+
+# 5. Access API docs
+open http://localhost:8080/swagger-ui.html
 ```
 
 ---
@@ -58,10 +129,23 @@ open index.html
 ## 📁 Project Structure
 
 ```
-TODOlist/
-├── index.html      # Main HTML file
-├── style.css       # Stylesheet with animations
-├── script.js       # App logic & localStorage
+task-manager-springboot/
+├── src/main/java/com/mohanraj/taskmanager/
+│   ├── controller/        # REST Controllers
+│   │   ├── TaskController.java
+│   │   └── AuthController.java
+│   ├── service/           # Business Logic
+│   │   └── TaskService.java
+│   ├── repository/        # JPA Repositories
+│   │   └── TaskRepository.java
+│   ├── model/             # Entity Classes
+│   │   ├── Task.java
+│   │   └── User.java
+│   ├── dto/               # Data Transfer Objects
+│   └── security/          # JWT Security Config
+├── src/main/resources/
+│   └── application.properties
+├── pom.xml
 └── README.md
 ```
 
@@ -69,24 +153,24 @@ TODOlist/
 
 ## 🔮 Future Enhancements
 
-- [ ] Drag & drop task reordering
-- [ ] Due date notifications
-- [ ] Cloud sync (Firebase)
-- [ ] Dark/Light mode
-- [ ] Task statistics dashboard
+- [ ] 📧 Email notifications for due tasks
+- [ ] 📊 Analytics dashboard (React frontend)
+- [ ] 🐳 Docker + Docker Compose setup
+- [ ] ☁️ AWS deployment (Elastic Beanstalk)
+- [ ] 🧪 Full unit & integration test coverage
 
 ---
 
-## 📄 License
+## 👨‍💻 Author
 
-MIT License — see [LICENSE](LICENSE) for details.
+**Mohanraj Kulanthaivel**  
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0077B5?style=flat-square&logo=linkedin)](https://linkedin.com/in/mohanraj-kulanthaivel)
+[![GitHub](https://img.shields.io/badge/GitHub-Follow-181717?style=flat-square&logo=github)](https://github.com/ITMohanraj)
 
 ---
 
 <div align="center">
+⭐ <b>Star this repository if it helped you!</b>
 
-**Made with ❤️ by [Mohanraj Kulanthaivel](https://github.com/ITMohanraj)**
-
-⭐ Star this repo if you find it helpful!
-
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:2d6a4f,100:1a472a&height=100&section=footer"/>
 </div>
